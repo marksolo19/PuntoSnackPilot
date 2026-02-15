@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto Snack - Heladeras Inteligentes para tu Espacio</title>
+    <meta name="description" content="Instala una heladera inteligente en tu oficina, gimnasio o espacio corporativo. Genera ingresos extra sin esfuerzo. Programa piloto en Buenos Aires.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Punto Snack - Heladeras Inteligentes para tu Espacio">
+    <meta property="og:description" content="Genera ingresos extra instalando una heladera inteligente. Nosotros nos encargamos de todo.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/og-image.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics 4 -->
+    <!-- CONFIGURACION: Reemplazar G-XXXXXXXXXX con tu Measurement ID de GA4 -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SR7F19H0X0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SR7F19H0X0');
+    </script>
+
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-answer.open { max-height: 200px; }
+        .faq-chevron { transition: transform 0.3s ease; }
+        .faq-chevron.open { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- ============================================ -->
+    <!-- CONFIGURACION - Editar estos valores         -->
+    <!-- ============================================ -->
+    <script>
+        // URL del Google Apps Script desplegado (ver workflows/landing_page.md)
+        const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxviR4f3gIXFLrbVzTGdO5BvyH3i2M31zYd1vqar28mwD9cS2f217GR-Kms5mCZJhvY/exec";
+
+        // Cantidad de espacios disponibles para el piloto
+        const PILOT_SPOTS = 100;
+    </script>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION                                   -->
+    <!-- ============================================ -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <span class="font-bold text-xl">Punto Snack</span>
+            </div>
+            <a href="#aplicar" class="hidden sm:inline-block bg-brand-500 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-brand-600 transition-colors">
+                Aplicar al Piloto
+            </a>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION - Editar headline y subheadline -->
+    <!-- ============================================ -->
+    <section class="pt-24 pb-16 sm:pt-32 sm:pb-24 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Badge de urgencia -->
+            <div class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-brand-200">
+                <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
+                Programa Piloto - Solo <span id="spots-hero"></span> espacios en Buenos Aires
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                Tu espacio genera<br>
+                <span class="text-brand-500">ingresos extra.</span><br>
+                Nosotros nos encargamos de todo.
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+                Instalamos una heladera inteligente en tu oficina, gimnasio o espacio corporativo.
+                Vos ganas un porcentaje de cada venta. Sin costo, sin esfuerzo.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#aplicar" class="bg-brand-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-brand-600 transition-colors shadow-lg shadow-brand-500/25">
+                    Aplicar al Programa Piloto
+                </a>
+                <a href="#como-funciona" class="border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-brand-300 hover:text-brand-600 transition-colors">
+                    Como funciona
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- COMO FUNCIONA - 3 pasos                      -->
+    <!-- ============================================ -->
+    <section id="como-funciona" class="py-16 sm:py-24 bg-gray-50 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">Como funciona</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-xl mx-auto">Tres pasos simples. Sin complicaciones.</p>
+
+            <div class="grid sm:grid-cols-3 gap-8">
+                <!-- Paso 1 -->
+                <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
+                    <div class="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-7 h-7 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="text-sm font-bold text-brand-500 mb-2">PASO 1</div>
+                    <h3 class="text-xl font-bold mb-2">Aplicas</h3>
+                    <p class="text-gray-600">Contanos sobre tu espacio: tipo, ubicacion y cantidad de personas. Nosotros evaluamos si es un buen fit.</p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
+                    <div class="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-7 h-7 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <div class="text-sm font-bold text-brand-500 mb-2">PASO 2</div>
+                    <h3 class="text-xl font-bold mb-2">Instalamos</h3>
+                    <p class="text-gray-600">Llevamos la heladera inteligente a tu espacio, la conectamos y la surtimos con productos seleccionados.</p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
+                    <div class="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-7 h-7 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-sm font-bold text-brand-500 mb-2">PASO 3</div>
+                    <h3 class="text-xl font-bold mb-2">Ganas</h3>
+                    <p class="text-gray-600">Recibis un porcentaje de cada venta, todos los meses. Sin mover un dedo. Nosotros reponemos y gestionamos todo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- BENEFICIOS PARA EL HOST                      -->
+    <!-- ============================================ -->
+    <section class="py-16 sm:py-24 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">Por que sumar Punto Snack a tu espacio</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-xl mx-auto">Todo el beneficio, cero complicaciones.</p>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+                <!-- Beneficio 1 -->
+                <div class="flex gap-4 p-6 rounded-xl border border-gray-100 hover:border-brand-200 transition-colors">
+                    <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Ingreso pasivo</h3>
+                        <p class="text-gray-600">Ganas un porcentaje de cada venta sin hacer nada. Todos los meses.</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 2 -->
+                <div class="flex gap-4 p-6 rounded-xl border border-gray-100 hover:border-brand-200 transition-colors">
+                    <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Cero inversion</h3>
+                        <p class="text-gray-600">La heladera, los productos y el mantenimiento corren por nuestra cuenta.</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 3 -->
+                <div class="flex gap-4 p-6 rounded-xl border border-gray-100 hover:border-brand-200 transition-colors">
+                    <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Cero operacion</h3>
+                        <p class="text-gray-600">Nosotros reponemos, ajustamos precios, resolvemos problemas. Vos no tenes que hacer nada.</p>
+                    </div>
+                </div>
+
+                <!-- Beneficio 4 -->
+                <div class="flex gap-4 p-6 rounded-xl border border-gray-100 hover:border-brand-200 transition-colors">
+                    <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Valor para tu equipo</h3>
+                        <p class="text-gray-600">Bebidas, snacks y opciones saludables siempre disponibles, 24/7. Un beneficio que se nota.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ESPACIOS IDEALES                             -->
+    <!-- ============================================ -->
+    <section class="py-16 sm:py-24 bg-gray-50 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">Espacios ideales para Punto Snack</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-xl mx-auto">Si tu espacio tiene flujo constante de personas, es un buen candidato.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white rounded-xl p-6 text-center shadow-sm">
+                    <svg class="w-10 h-10 text-brand-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    <h3 class="font-bold">Oficinas</h3>
+                    <p class="text-sm text-gray-500 mt-1">50+ personas</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center shadow-sm">
+                    <svg class="w-10 h-10 text-brand-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                    </svg>
+                    <h3 class="font-bold">Gimnasios</h3>
+                    <p class="text-sm text-gray-500 mt-1">Alto trafico</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center shadow-sm">
+                    <svg class="w-10 h-10 text-brand-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <h3 class="font-bold">Coworkings</h3>
+                    <p class="text-sm text-gray-500 mt-1">Comunidad activa</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center shadow-sm">
+                    <svg class="w-10 h-10 text-brand-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+                    </svg>
+                    <h3 class="font-bold">Corporativos</h3>
+                    <p class="text-sm text-gray-500 mt-1">Edificios y campus</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FORMULARIO DE APLICACION                     -->
+    <!-- ============================================ -->
+    <section id="aplicar" class="py-16 sm:py-24 px-4">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4 border border-brand-200">
+                    <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
+                    Quedan pocos lugares
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Aplica al Programa Piloto</h2>
+                <p class="text-gray-600">Contanos sobre tu espacio y te contactamos en menos de 48 horas.</p>
+            </div>
+
+            <!-- Form -->
+            <form id="application-form" class="space-y-5">
+                <div>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                        placeholder="Tu nombre y apellido">
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                            placeholder="tu@email.com">
+                    </div>
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">WhatsApp / Telefono *</label>
+                        <input type="tel" id="telefono" name="telefono" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                            placeholder="+54 11 1234-5678">
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="tipo_espacio" class="block text-sm font-medium text-gray-700 mb-1">Tipo de espacio *</label>
+                        <select id="tipo_espacio" name="tipo_espacio" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors bg-white">
+                            <option value="" disabled selected>Selecciona...</option>
+                            <option value="oficina">Oficina</option>
+                            <option value="gimnasio">Gimnasio</option>
+                            <option value="coworking">Coworking</option>
+                            <option value="edificio_corporativo">Edificio corporativo</option>
+                            <option value="centro_educativo">Centro educativo</option>
+                            <option value="sala_espera">Sala de espera</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cantidad_personas" class="block text-sm font-medium text-gray-700 mb-1">Cantidad de personas *</label>
+                        <select id="cantidad_personas" name="cantidad_personas" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors bg-white">
+                            <option value="" disabled selected>Selecciona...</option>
+                            <option value="menos_30">Menos de 30</option>
+                            <option value="30_50">30 - 50</option>
+                            <option value="50_100">50 - 100</option>
+                            <option value="100_200">100 - 200</option>
+                            <option value="mas_200">Mas de 200</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="ubicacion" class="block text-sm font-medium text-gray-700 mb-1">Ubicacion (barrio o zona) *</label>
+                    <input type="text" id="ubicacion" name="ubicacion" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors"
+                        placeholder="Ej: Palermo, Microcentro, Belgrano...">
+                </div>
+
+                <div>
+                    <label for="comentarios" class="block text-sm font-medium text-gray-700 mb-1">Algo mas que quieras contarnos?</label>
+                    <textarea id="comentarios" name="comentarios" rows="3"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-colors resize-none"
+                        placeholder="Contanos sobre tu espacio, tus necesidades, o cualquier pregunta que tengas..."></textarea>
+                </div>
+
+                <!-- Hidden UTM fields -->
+                <input type="hidden" id="utm_source" name="utm_source">
+                <input type="hidden" id="utm_medium" name="utm_medium">
+                <input type="hidden" id="utm_campaign" name="utm_campaign">
+
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-brand-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-brand-600 transition-colors shadow-lg shadow-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Enviar Aplicacion
+                </button>
+            </form>
+
+            <!-- Success message (hidden by default) -->
+            <div id="success-message" class="hidden text-center py-12">
+                <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Recibimos tu aplicacion</h3>
+                <p class="text-gray-600">Te contactamos en las proximas 48 horas. Gracias por tu interes en Punto Snack.</p>
+            </div>
+
+            <!-- Error message (hidden by default) -->
+            <div id="error-message" class="hidden text-center py-6">
+                <p class="text-red-600 font-medium">Hubo un error al enviar. Por favor intenta de nuevo o escribinos a <a href="mailto:hola@puntosnack.com.ar" class="underline">hola@puntosnack.com.ar</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FAQ - Preguntas frecuentes                   -->
+    <!-- ============================================ -->
+    <section class="py-16 sm:py-24 bg-gray-50 px-4">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Preguntas frecuentes</h2>
+
+            <div class="space-y-3">
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Cuanto puedo ganar?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Recibis un porcentaje de cada venta que se realice en tu espacio. El monto depende del volumen y tipo de espacio. Lo definimos juntos durante el proceso de seleccion.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Cuanto espacio necesito?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Solo 1 metro cuadrado cerca de un enchufe. La heladera es compacta y se adapta a cualquier rincon de tu oficina, recepcion o area comun.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Tiene algun costo para mi?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Ninguno. Punto Snack invierte en el equipo, los productos y la operacion. Vos solo pones el espacio.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Que productos tienen?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Bebidas frias, snacks, opciones saludables y productos de conveniencia. Ajustamos el surtido segun las preferencias de cada espacio.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Como es el programa piloto?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Seleccionamos los mejores espacios en Buenos Aires para instalar primero. Los participantes del piloto reciben atencion personalizada y condiciones especiales por ser los primeros.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-white rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 flex items-center justify-between font-medium hover:bg-gray-50 transition-colors">
+                        <span>Puedo cancelar cuando quiera?</span>
+                        <svg class="faq-chevron w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-4 text-gray-600">Si. No hay permanencia minima obligatoria en el programa piloto. Si no funciona para vos, retiramos el equipo sin costo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer class="py-10 px-4 border-t border-gray-100">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-brand-500 rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <span class="font-bold">Punto Snack</span>
+            </div>
+            <!-- EDITAR: Cambiar email de contacto -->
+            <p class="text-sm text-gray-500">
+                Consultas: <a href="mailto:hola@puntosnack.com.ar" class="text-brand-600 hover:underline">hola@puntosnack.com.ar</a>
+            </p>
+            <p class="text-sm text-gray-400">2026 Punto Snack. Buenos Aires, Argentina.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
+    <script>
+        // --- Pilot spots display ---
+        document.getElementById('spots-hero').textContent = PILOT_SPOTS;
+
+        // --- UTM parameter capture ---
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var fields = ['utm_source', 'utm_medium', 'utm_campaign'];
+            fields.forEach(function(field) {
+                var el = document.getElementById(field);
+                if (el && params.get(field)) {
+                    el.value = params.get(field);
+                }
+            });
+        })();
+
+        // --- FAQ accordion ---
+        function toggleFaq(button) {
+            var answer = button.nextElementSibling;
+            var chevron = button.querySelector('.faq-chevron');
+            answer.classList.toggle('open');
+            chevron.classList.toggle('open');
+        }
+
+        // --- Form submission ---
+        document.getElementById('application-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('submit-btn');
+            var form = this;
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            var data = {
+                nombre: form.nombre.value,
+                email: form.email.value,
+                telefono: form.telefono.value,
+                tipo_espacio: form.tipo_espacio.value,
+                cantidad_personas: form.cantidad_personas.value,
+                ubicacion: form.ubicacion.value,
+                comentarios: form.comentarios.value,
+                utm_source: form.utm_source.value || '(directo)',
+                utm_medium: form.utm_medium.value || '(none)',
+                utm_campaign: form.utm_campaign.value || '(none)',
+            };
+
+            // Send to Google Apps Script
+            fetch(FORM_ENDPOINT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            })
+            .then(function() {
+                // no-cors returns opaque response, assume success
+                form.classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+
+                // Track conversion in GA4 (if configured)
+                if (typeof gtag === 'function') {
+                    gtag('event', 'generate_lead', {
+                        event_category: 'pilot_application',
+                        event_label: data.tipo_espacio,
+                        value: 1,
+                    });
+                }
+            })
+            .catch(function() {
+                btn.disabled = false;
+                btn.textContent = 'Enviar Aplicacion';
+                document.getElementById('error-message').classList.remove('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>
